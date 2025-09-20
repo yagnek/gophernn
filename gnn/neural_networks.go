@@ -46,7 +46,7 @@ func (nn *NeuralNet) Query(inputsList [][]float64) [][]float64 {
 	return outputs[len(outputs)-1].Data
 }
 
-func (nn *NeuralNet) Train(inputsList, targetsList [][]float64, loss func(x, y float64) float64) {
+func (nn *NeuralNet) Train(inputsList, targetsList [][]float64) {
 	targets, _ := NewMatrix(targetsList)
 	targets = targets.T()
 
@@ -59,8 +59,10 @@ func (nn *NeuralNet) Train(inputsList, targetsList [][]float64, loss func(x, y f
 		outputs = append(outputs, nn.Weights[i].Dot(outputs[i]).ApplyF(nn.Activation))
 	}
 
+	lossDerivativeFn := func(x, y float64) float64 { return x - y }
+
 	errors := []*Matrix{}
-	errors = append(errors, targets.Elementwise(outputs[len(outputs)-1], loss))
+	errors = append(errors, targets.Elementwise(outputs[len(outputs)-1], lossDerivativeFn))
 	for i := 0; i != len(nn.Weights); i++ {
 		errors = append(errors, nn.Weights[len(nn.Weights)-1-i].T().Dot(errors[i]))
 	}
