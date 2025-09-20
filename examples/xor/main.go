@@ -9,7 +9,6 @@ import (
 
 func main() {
 	activation := func(x float64) float64 { return 1 / (1 + math.Exp(-x)) }
-	loss := func(x, y float64) float64 { return x - y }
 
 	cases := [][][]float64{}
 	case1 := [][]float64{{0, 0}}
@@ -37,7 +36,7 @@ func main() {
 	epochs := 10000
 	for e := 0; e < epochs; e++ {
 		for i := 0; i < len(cases); i++ {
-			nn.Train(cases[i], targets[i], loss)
+			nn.Train(cases[i], targets[i])
 		}
 	}
 	fmt.Println("Resaults:")
