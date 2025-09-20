@@ -92,7 +92,7 @@ func (a *Matrix) ElSub(b *Matrix) *Matrix {
 
 func (a *Matrix) Dot(b *Matrix) (m *Matrix) {
 	if a.Cols != b.Rows {
-		panic("cannot multiply: incompatible dimensions")
+		panic(fmt.Sprintf("cannot multiply: dimensions %dx%d and %dx%d", a.Rows, a.Cols, b.Rows, b.Cols))
 	}
 	m = ZeroMatrix(a.Rows, b.Cols)
 	for i := range m.Rows {
