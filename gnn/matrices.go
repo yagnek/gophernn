@@ -11,6 +11,14 @@ type Matrix struct {
 }
 
 func NewMatrix(data [][]float64) (m *Matrix, err error) {
+	rows := len(data)
+	cols := len(data[0])
+	for i := range rows {
+		if len(data[i]) != cols {
+			err := fmt.Errorf("cannot construct matrix: the amount columns in data is not uniform")
+			return nil, err
+		}
+	}
 	return &Matrix{
 		Rows: len(data),
 		Cols: len(data[0]),
