@@ -10,27 +10,27 @@ import (
 func main() {
 	activation := func(x float64) float64 { return 1 / (1 + math.Exp(-x)) }
 
-	cases := [][][]float64{}
-	case1 := [][]float64{{0, 0}}
-	case2 := [][]float64{{1, 0}}
-	case3 := [][]float64{{0, 1}}
-	case4 := [][]float64{{1, 1}}
-	cases = append(cases, case1, case2, case3, case4)
+	cases := [][][]float64{
+		{{0, 0}},
+		{{1, 0}},
+		{{0, 1}},
+		{{1, 1}},
+	}
 
-	targets := [][][]float64{}
-	target1 := [][]float64{{0}}
-	target2 := [][]float64{{1}}
-	target3 := [][]float64{{1}}
-	target4 := [][]float64{{0}}
-	targets = append(targets, target1, target2, target3, target4)
+	targets := [][][]float64{
+		{{0}},
+		{{1}},
+		{{1}},
+		{{0}},
+	}
 
-	nn, _ := gnn.NewNeuralNet([]int{2, 4, 1}, 0.1, activation)
+	nn, _ := gnn.NewNeuralNet([]int{2, 8, 4, 1}, 0.1, activation)
 
 	fmt.Println("XOR NN!")
 	fmt.Println("Before trainig:")
 	fmt.Println("Resaults:")
 	for i := range len(cases) {
-		fmt.Println(nn.Query(cases[i]))
+		fmt.Printf("%.0f xor %.0f = %.0f\n", cases[i][0][0], cases[i][0][1], math.Round(nn.Query(cases[i])[0][0]))
 	}
 
 	epochs := 10000
@@ -42,7 +42,7 @@ func main() {
 	fmt.Println("Resaults:")
 	fmt.Println("After training:")
 	for i := range len(cases) {
-		fmt.Println(nn.Query(cases[i]))
+		fmt.Printf("%.0f xor %.0f = %.0f\n", cases[i][0][0], cases[i][0][1], math.Round(nn.Query(cases[i])[0][0]))
 	}
 
 }
