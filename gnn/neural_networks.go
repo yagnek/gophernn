@@ -1,6 +1,7 @@
 package gnn
 
 import (
+	"log"
 	"math"
 	"math/rand"
 )
@@ -36,7 +37,10 @@ func NewNeuralNet(shape []int, lr float64, activation func(x float64) float64) *
 }
 
 func (nn *NeuralNet) Query(inputsList [][]float64) [][]float64 {
-	inputs, _ := NewMatrix(inputsList)
+	inputs, err := NewMatrix(inputsList)
+	if err != nil {
+		log.Fatal(err)
+	}
 	inputs = inputs.T()
 
 	outputs := []*Matrix{}
@@ -49,14 +53,23 @@ func (nn *NeuralNet) Query(inputsList [][]float64) [][]float64 {
 }
 
 func (nn *NeuralNet) Train(inputsList, targetsList [][]float64) {
-	targets, _ := NewMatrix(targetsList)
+	targets, err := NewMatrix(targetsList)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	targets = targets.T()
 
-	inputs, _ := NewMatrix(inputsList)
+	inputs, nil := NewMatrix(inputsList)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	inputs = inputs.T()
 
 	outputs := []*Matrix{}
 	outputs = append(outputs, inputs)
+
 	for i := 0; i < len(nn.Weights); i++ {
 		outputs = append(outputs, nn.Weights[i].Dot(outputs[i]).ApplyF(nn.Activation))
 	}
