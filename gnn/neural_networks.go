@@ -22,7 +22,7 @@ func InitRandom(m *Matrix) *Matrix {
 	}
 	return m
 }
-func NewNeuralNet(shape []int, lr float64, activation func(x float64) float64) (nn *NeuralNet, err error) {
+func NewNeuralNet(shape []int, lr float64, activation func(x float64) float64) *NeuralNet {
 	weights := []*Matrix{}
 	for i := range (len(shape)) - 1 {
 		weights = append(weights, InitRandom(ZeroMatrix(shape[i+1], shape[i])))
@@ -32,7 +32,7 @@ func NewNeuralNet(shape []int, lr float64, activation func(x float64) float64) (
 		LR:         lr,
 		Activation: activation,
 		Weights:    weights,
-	}, nil
+	}
 }
 
 func (nn *NeuralNet) Query(inputsList [][]float64) [][]float64 {

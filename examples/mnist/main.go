@@ -100,7 +100,7 @@ func main() {
 	trainingInputs, trainingTargets, _ := constructData(trainingCSV)
 	testInputs, _, testLabels := constructData(testCSV)
 
-	nn, _ := gnn.NewNeuralNet([]int{784, 200, 10}, 0.1, activation)
+	nn := gnn.NewNeuralNet([]int{784, 200, 10}, 0.1, activation)
 
 	epochs := 10
 	for e := range epochs {

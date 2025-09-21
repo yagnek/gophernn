@@ -24,7 +24,7 @@ func main() {
 		{{0}},
 	}
 
-	nn, _ := gnn.NewNeuralNet([]int{2, 8, 4, 1}, 0.1, activation)
+	nn := gnn.NewNeuralNet([]int{2, 8, 4, 1}, 0.1, activation)
 
 	fmt.Println("XOR NN!")
 	fmt.Println("Before trainig:")
