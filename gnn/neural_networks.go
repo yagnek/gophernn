@@ -1,10 +1,5 @@
 package gnn
 
-import (
-	"math"
-	"math/rand"
-)
-
 type NeuralNet struct {
 	Shape      []int
 	LR         float64
@@ -12,20 +7,10 @@ type NeuralNet struct {
 	Weights    []*matrix
 }
 
-func InitRandom(m *matrix) *matrix {
-	fanIn := m.Cols
-	scale := 1.0 / math.Sqrt(float64(fanIn))
-	for i := 0; i < m.Rows; i++ {
-		for j := 0; j < m.Cols; j++ {
-			m.Data[i][j] = rand.NormFloat64() * scale
-		}
-	}
-	return m
-}
 func NewNeuralNet(shape []int, lr float64, activation func(x float64) float64) *NeuralNet {
 	weights := []*matrix{}
 	for i := range (len(shape)) - 1 {
-		weights = append(weights, InitRandom(zeroMatrix(shape[i+1], shape[i])))
+		weights = append(weights, zeroMatrix(shape[i+1], shape[i]).initRandom())
 	}
 	return &NeuralNet{
 		Shape:      shape,

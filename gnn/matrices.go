@@ -2,6 +2,8 @@ package gnn
 
 import (
 	"fmt"
+	"math"
+	"math/rand"
 )
 
 type matrix struct {
@@ -36,6 +38,17 @@ func zeroMatrix(rows, cols int) *matrix {
 		Cols: cols,
 		Data: mData,
 	}
+}
+
+func (m *matrix) initRandom() *matrix {
+	fanIn := m.Cols
+	scale := 1.0 / math.Sqrt(float64(fanIn))
+	for i := 0; i < m.Rows; i++ {
+		for j := 0; j < m.Cols; j++ {
+			m.Data[i][j] = rand.NormFloat64() * scale
+		}
+	}
+	return m
 }
 
 func (m *matrix) show() {
