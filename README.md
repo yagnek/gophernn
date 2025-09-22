@@ -15,7 +15,6 @@ A small Go deep learning library, written for learning purposes.
 func NewNeuralNet(shape []int, lr float64, activation func(x float64) float64) *NeuralNet
 func (nn *NeuralNet) Query(inputsList [][]float64) [][]float64
 func (nn *NeuralNet) Train(inputsList, targetsList [][]float64)
-
 ```
 
 ### Examples
