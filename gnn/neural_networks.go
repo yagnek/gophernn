@@ -1,7 +1,6 @@
 package gnn
 
 import (
-	"log"
 	"math"
 	"math/rand"
 )
@@ -39,7 +38,7 @@ func NewNeuralNet(shape []int, lr float64, activation func(x float64) float64) *
 func (nn *NeuralNet) Query(inputsList [][]float64) [][]float64 {
 	inputs, err := newMatrix(inputsList)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	inputs = inputs.T()
 
@@ -55,14 +54,14 @@ func (nn *NeuralNet) Query(inputsList [][]float64) [][]float64 {
 func (nn *NeuralNet) Train(inputsList, targetsList [][]float64) {
 	targets, err := newMatrix(targetsList)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	targets = targets.T()
 
-	inputs, nil := newMatrix(inputsList)
+	inputs, err := newMatrix(inputsList)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	inputs = inputs.T()

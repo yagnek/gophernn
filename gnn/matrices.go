@@ -73,6 +73,9 @@ func (m *matrix) scalMult(s float64) *matrix {
 }
 
 func (a *matrix) elementwise(b *matrix, f func(x, y float64) float64) *matrix {
+	if a.Rows != b.Rows || a.Cols != b.Cols {
+		panic(fmt.Sprintf("cannot perform elementwise operation: dimensions %dx%d and %dx%d", a.Rows, a.Cols, b.Rows, b.Cols))
+	}
 	m := zeroMatrix(a.Rows, a.Cols)
 	for i := range a.Rows {
 		for j := range b.Cols {
