@@ -104,7 +104,7 @@ func main() {
 
 	epochs := 10
 	for e := range epochs {
-		fmt.Println("Epoch", e+1)
+		fmt.Printf("Epoch %d / %d\n", e+1, epochs)
 		for i := 0; i < 1000; i++ {
 			nn.Train(trainingInputs[i], trainingTargets[i])
 		}
